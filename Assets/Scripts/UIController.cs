@@ -6,7 +6,7 @@ using TMPro;
 public class UIController : MonoBehaviour
 {
     public static UIController instance;
-
+    
     private void Awake()
     {
         #region singleTon
@@ -27,6 +27,9 @@ public class UIController : MonoBehaviour
     public float manaWarningTime;
     private float manaWarningCounter;
 
+    //button reference
+    public GameObject drawCardButton;
+    public GameObject endTurnButton;
     void Start()
     {
         
@@ -55,5 +58,16 @@ public class UIController : MonoBehaviour
     {
         manaWarning.SetActive(true);
         manaWarningCounter = manaWarningTime;
+    }
+
+    //button function
+    public void DrawCard() 
+    {
+        DeckController.instance.DrawCardForMana();
+    }
+
+    public void EndPlayerTurn() 
+    {
+        BattleController.instance.EndPlayerTurn();
     }
 }

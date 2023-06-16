@@ -82,9 +82,9 @@ public class Card : MonoBehaviour
                 ReturnToHand();
             }
 
-            if (Input.GetMouseButtonDown(0) && justPressed == false) 
+            if (Input.GetMouseButtonDown(0) && justPressed == false && inHand) 
             {
-               if(Physics.Raycast(ray, out hit, 100f, whatIsPlacement)) 
+               if(Physics.Raycast(ray, out hit, 100f, whatIsPlacement) && BattleController.instance.currentPhase == BattleController.TurnOrder.PlayerActive) 
                 {
                     //if the place is able to place the card
                     CardPlacePoint selectedPoint = hit.collider.GetComponent<CardPlacePoint>();
@@ -137,6 +137,7 @@ public class Card : MonoBehaviour
        
     }
 
+    //mouse interaction
     private void OnMouseOver()
     {
         if (inHand) 
@@ -155,7 +156,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (inHand) 
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.PlayerActive) 
         {
             isSelected = true;
             theCol.enabled = false;
