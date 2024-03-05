@@ -21,7 +21,7 @@ public class UIController : MonoBehaviour
         #endregion
     }
 
-    public TMP_Text playerManaText;
+    public TMP_Text playerManaText, playerHealthText, enemyManaText, enemyHealthText;
 
     public GameObject manaWarning;
     public float manaWarningTime;
@@ -30,6 +30,8 @@ public class UIController : MonoBehaviour
     //button reference
     public GameObject drawCardButton;
     public GameObject endTurnButton;
+
+    public UIDamageIndicator playerDamage, enemyDamage;
     void Start()
     {
         
@@ -52,6 +54,21 @@ public class UIController : MonoBehaviour
     public void SetPlayerManaText(int manaAmount) 
     {
         playerManaText.text = "Mana: " + manaAmount;
+    }
+
+    public void SetEnemyManaText(int manaAmount)
+    {
+        enemyManaText.text = "Mana: " + manaAmount;
+    }
+
+    public void SetPlayerHealthText(int healthAmount) 
+    {
+        playerHealthText.text = "Player Health: " + healthAmount;
+    }
+
+    public void SetEnemyHealthText(int healthAmount)
+    {
+        enemyHealthText.text = "Enemy Health: " + healthAmount;
     }
 
     public void ShowManaWarning() 

@@ -534,7 +534,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6614789097349391093}
-  m_LocalRotation: {x: -0, y: 0, z: -0.043619405, w: 0.9990483}
+  m_LocalRotation: {x: 0, y: 0, z: -0.043619405, w: 0.9990483}
   m_LocalPosition: {x: -2.806803, y: 0.9531077, z: -1.8317261}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -542,7 +542,7 @@ Transform:
   - {fileID: 6614789097583923233}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -5}
 --- !u!114 &6614789097349391099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +556,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardSO: {fileID: 11400000, guid: 933a203924f3e384eb6c70200821cb2b, type: 2}
+  isPlayer: 1
   currentHealth: 1
   attackPower: 2
   manaCost: 3
@@ -569,7 +570,7 @@ MonoBehaviour:
   bgArt: {fileID: 6614789096947087080}
   moveSpeed: 5
   rotateSpeed: 540
-  inHand: 1
+  inHand: 0
   handPosition: 0
   whatIsDesktop:
     serializedVersion: 2
@@ -578,6 +579,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   assignedPlace: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!65 &6614789097349391096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -736,6 +738,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6614789097583923233}
+  - component: {fileID: 284784240}
   m_Layer: 0
   m_Name: Model Holder
   m_TagString: Untagged
@@ -760,6 +763,26 @@ Transform:
   m_Father: {fileID: 6614789097349391098}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &284784240
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6614789097583923232}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 42a3ea4e2bc7e2748a393299f561100a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6614789097699310499
 GameObject:
   m_ObjectHideFlags: 0
