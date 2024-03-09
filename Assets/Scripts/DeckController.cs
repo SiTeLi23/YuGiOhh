@@ -76,6 +76,8 @@ public class DeckController : MonoBehaviour
 
         activeCards.RemoveAt(0);
 
+        AudioManager.instance.PlaySFX(3);
+
     }
 
     public void DrawCardForMana() 

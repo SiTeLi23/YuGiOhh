@@ -32,6 +32,13 @@ public class EnemyController : MonoBehaviour
     private List<CardScriptableObject> cardsInHand = new List<CardScriptableObject>();
     public int startHandSize;
 
+    private int iterations = 0;
+    private CardScriptableObject selectedCard;
+    private List<CardPlacePoint> preferredPoints = new List<CardPlacePoint>();
+    private List<CardPlacePoint> secondaryPoints = new List<CardPlacePoint>();
+    private List<CardPlacePoint> cardPoints = new List<CardPlacePoint>();
+    private CardPlacePoint selectedPoint;
+
     void Start()
     {
         SetupDeck();
@@ -100,11 +107,11 @@ public class EnemyController : MonoBehaviour
         }
 
         //randomly selected a card point which is empty
-        List<CardPlacePoint> cardPoints = new List<CardPlacePoint>();
+        cardPoints.Clear();
         cardPoints.AddRange(CardPointController.instance.enemyCardPoints);
 
         int randomPoint = Random.Range(0, cardPoints.Count);
-        CardPlacePoint selectedPoint = cardPoints[randomPoint];
+        selectedPoint = cardPoints[randomPoint];
 
         //loop through to find an empty card point 
         if (enemyAIType == AIType.placedFromDeck || enemyAIType == AIType.handRandomPlace)
@@ -119,11 +126,7 @@ public class EnemyController : MonoBehaviour
             }
         }
 
-        CardScriptableObject selectedCard = null;
-        int iterations = 0;
-
-        List<CardPlacePoint> preferredPoints = new List<CardPlacePoint>();
-        List<CardPlacePoint> secondaryPoints = new List<CardPlacePoint>();
+      
 
         //AIAction based on AIType
         switch (enemyAIType)
@@ -169,110 +172,13 @@ public class EnemyController : MonoBehaviour
                 break;
             case AIType.handDefensive:
 
-                selectedCard = SelectedCardToPlay();
-
-                preferredPoints.Clear();
-                secondaryPoints.Clear();
-
-                
-                for (int i = 0; i < cardPoints.Count; i++)
-                {
-                    if(cardPoints[i].activeCard == null) 
-                    {
-                       if(CardPointController.instance.playerCardPoints[i].activeCard != null) 
-                        {
-                            preferredPoints.Add(cardPoints[i]); //if opposite side card points have cards, those points will be preferred points for this AI logic
-                        }
-                        else 
-                        {
-                            secondaryPoints.Add(cardPoints[i]);
-                        }
-                    }
-                }
-
-                iterations = 50;
-                while(selectedCard != null && iterations > 0 && preferredPoints.Count + secondaryPoints.Count > 0) 
-                {
-                    //pick a point to be used
-                    if(preferredPoints.Count > 0) 
-                    {
-                        int selectPoint = Random.Range(0, preferredPoints.Count);
-                        selectedPoint = preferredPoints[selectPoint];
-
-                        preferredPoints.RemoveAt(selectPoint);
-                    }
-                    //pick a backup point to be used
-                    else 
-                    {
-                        int selectPoint = Random.Range(0, preferredPoints.Count);
-                        selectedPoint = secondaryPoints[selectPoint];
-
-                        secondaryPoints.RemoveAt(selectPoint);
-                    }
-
-                    PlayCard(selectedCard, selectedPoint);
-
-                    //check if we can play another card                  
-                    selectedCard = SelectedCardToPlay(); //whenever the selecedCard's value changed, the while loop check will be triggered again 
-
-                    iterations--;
-
-                    yield return new WaitForSeconds(CardPointController.instance.timeBetweenAttacks);
-                }
+                StartCoroutine(AttackORDefenceLogicMove(true));
                 
                 break;
             case AIType.handAttacking:
 
-                selectedCard = SelectedCardToPlay();
+                StartCoroutine(AttackORDefenceLogicMove(false));
 
-                preferredPoints.Clear();
-                secondaryPoints.Clear();
-
-
-                for (int i = 0; i < cardPoints.Count; i++)
-                {
-                    if (cardPoints[i].activeCard == null)
-                    {
-                        if (CardPointController.instance.playerCardPoints[i].activeCard == null)
-                        {
-                            preferredPoints.Add(cardPoints[i]); //if opposite side card points do not have cards, those points will be preferred points for this AI logic
-                        }
-                        else
-                        {
-                            secondaryPoints.Add(cardPoints[i]);
-                        }
-                    }
-                }
-
-                iterations = 50;
-                while (selectedCard != null && iterations > 0 && preferredPoints.Count + secondaryPoints.Count > 0)
-                {
-                    //pick a point to be used
-                    if (preferredPoints.Count > 0)
-                    {
-                        int selectPoint = Random.Range(0, preferredPoints.Count);
-                        selectedPoint = preferredPoints[selectPoint];
-
-                        preferredPoints.RemoveAt(selectPoint);
-                    }
-                    //pick a backup point to be used
-                    else
-                    {
-                        int selectPoint = Random.Range(0, preferredPoints.Count);
-                        selectedPoint = secondaryPoints[selectPoint];
-
-                        secondaryPoints.RemoveAt(selectPoint);
-                    }
-
-                    PlayCard(selectedCard, selectedPoint);
-
-                    //check if we can play another card                  
-                    selectedCard = SelectedCardToPlay(); //whenever the selecedCard's value changed, the while loop check will be triggered again 
-
-                    iterations--;
-
-                    yield return new WaitForSeconds(CardPointController.instance.timeBetweenAttacks);
-                }
                 break;
             default:
                 break;
@@ -303,6 +209,69 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Decide whether AI should take defensive or offensive action based on the input
+    /// </summary>
+    /// <param name="isDefence">A boolean value indicating if the current strategy preference is defense. If true, the AI considers taking defensive actions; otherwise, it considers offensive actions.</param>
+    /// <returns>A boolean indicating the decision of the AI. If true, the AI considers taking defensive actions; otherwise, it considers offensive actions.</returns>
+    IEnumerator AttackORDefenceLogicMove(bool isDefence)
+    {
+        selectedCard = SelectedCardToPlay();
+
+        preferredPoints.Clear();
+        secondaryPoints.Clear();
+
+
+        for (int i = 0; i < cardPoints.Count; i++)
+        {
+            if (cardPoints[i].activeCard == null)
+            {
+                if ( isDefence? CardPointController.instance.playerCardPoints[i].activeCard != null : CardPointController.instance.playerCardPoints[i].activeCard == null)
+                {
+                    preferredPoints.Add(cardPoints[i]); 
+                }
+                else
+                {
+                    secondaryPoints.Add(cardPoints[i]);
+                }
+            }
+        }
+
+        iterations = 50;
+        while (selectedCard != null && iterations > 0 && preferredPoints.Count + secondaryPoints.Count > 0)
+        {
+            //pick a point to be used
+            if (preferredPoints.Count > 0)
+            {
+                int selectPoint = Random.Range(0, preferredPoints.Count);
+                selectedPoint = preferredPoints[selectPoint];
+
+                preferredPoints.RemoveAt(selectPoint);
+            }
+            //pick a backup point to be used
+            else
+            {
+                int selectPoint = Random.Range(0, preferredPoints.Count);
+                selectedPoint = secondaryPoints[selectPoint];
+
+                secondaryPoints.RemoveAt(selectPoint);
+            }
+
+            PlayCard(selectedCard, selectedPoint);
+
+            //check if we can play another card                  
+            selectedCard = SelectedCardToPlay(); //whenever the selecedCard's value changed, the while loop check will be triggered again 
+
+            iterations--;
+
+            yield return new WaitForSeconds(CardPointController.instance.timeBetweenAttacks);
+        }
+
+    }
+
+    /// <summary>
+    /// instantiate a card and move it to target place point
+    /// </summary>
     public void PlayCard(CardScriptableObject cardSO, CardPlacePoint placePoint) 
     {
         Card newCard = Instantiate(cardToSpawn, cardSpawnPoint.position, cardSpawnPoint.rotation);
@@ -317,6 +286,8 @@ public class EnemyController : MonoBehaviour
         cardsInHand.Remove(cardSO); //remove card from hand
 
         BattleController.instance.SpendEnemyMana(cardSO.manaCost);
+
+        AudioManager.instance.PlaySFX(4);
     }
 
     /// <summary>

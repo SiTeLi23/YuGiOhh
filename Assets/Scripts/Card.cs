@@ -75,7 +75,7 @@ public class Card : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, targetPoint, moveSpeed * Time.deltaTime);
         transform.rotation = Quaternion.RotateTowards(transform.rotation,targetRot, rotateSpeed * Time.deltaTime);
 
-        if (isSelected) 
+        if (isSelected && BattleController.instance.battleEnded == false && Time.timeScale != 0f) 
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -86,12 +86,12 @@ public class Card : MonoBehaviour
                 MoveToPoint(hit.point + new Vector3(0f,2f,0f),Quaternion.identity);
             }
 
-            if (Input.GetMouseButtonDown(1)) 
+            if (Input.GetMouseButtonDown(1) && BattleController.instance.battleEnded == false) 
             {
                 ReturnToHand();
             }
 
-            if (Input.GetMouseButtonDown(0) && justPressed == false && inHand) 
+            if (Input.GetMouseButtonDown(0) && justPressed == false && inHand && BattleController.instance.battleEnded == false) 
             {
                if(Physics.Raycast(ray, out hit, 100f, whatIsPlacement) && BattleController.instance.currentPhase == BattleController.TurnOrder.PlayerActive) 
                 {
@@ -114,6 +114,8 @@ public class Card : MonoBehaviour
                             HandController.instance.RemoveCardFromHand(this);
 
                             BattleController.instance.SpendPlayerMana(manaCost);
+
+                            AudioManager.instance.PlaySFX(4);
                         }
                         else 
                         {
@@ -149,7 +151,7 @@ public class Card : MonoBehaviour
     //mouse interaction
     private void OnMouseOver()
     {
-        if (inHand && isPlayer) 
+        if (inHand && isPlayer && BattleController.instance.battleEnded == false) 
         {
             MoveToPoint(HandController.instance.cardPosition[handPosition] + new Vector3(0, 1f, .5f), Quaternion.identity);
         }
@@ -157,7 +159,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseExit()
     {
-        if (inHand && isPlayer)
+        if (inHand && isPlayer && BattleController.instance.battleEnded == false)
         {
             MoveToPoint(HandController.instance.cardPosition[handPosition], HandController.instance.minPos.rotation);
         }
@@ -165,7 +167,7 @@ public class Card : MonoBehaviour
 
     private void OnMouseDown()
     {
-        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.PlayerActive && isPlayer) 
+        if (inHand && BattleController.instance.currentPhase == BattleController.TurnOrder.PlayerActive && isPlayer && BattleController.instance.battleEnded == false && Time.timeScale != 0f) 
         {
             isSelected = true;
             theCol.enabled = false;
@@ -196,6 +198,12 @@ public class Card : MonoBehaviour
             anim.SetTrigger("Jump");
 
             Destroy(gameObject, 5f);
+
+            AudioManager.instance.PlaySFX(2);
+        }
+        else 
+        {
+            AudioManager.instance.PlaySFX(1);
         }
 
         UpdateCardDisplay();

@@ -61,7 +61,15 @@ public class CardPointController : MonoBehaviour
                 }
 
                 playerCardPoints[i].activeCard.anim.SetTrigger("Attack");
+
+                AudioManager.instance.PlaySFX(1);
+
                 yield return new WaitForSeconds(timeBetweenAttacks);
+            }
+
+           if(BattleController.instance.battleEnded == true) 
+            {
+                i = playerCardPoints.Length; // move to the last point to stop card attacking behaviour to break out the loop
             }
         }
 
@@ -97,7 +105,15 @@ public class CardPointController : MonoBehaviour
                 }
 
                 enemyCardPoints[i].activeCard.anim.SetTrigger("Attack");
+
+                AudioManager.instance.PlaySFX(1);
+
                 yield return new WaitForSeconds(timeBetweenAttacks);
+            }
+
+            if (BattleController.instance.battleEnded == true)
+            {
+                i = playerCardPoints.Length; // move to the last point to stop card attacking behaviour to break out the loop
             }
         }
 
