@@ -75,7 +75,7 @@ public class BattleController : MonoBehaviour
             AdvanceTurn();
         }
 
-        AudioManager.instance.PlayBGM();
+        //AudioManager.instance.PlayBGM();
     }
 
     public void SpendPlayerMana(int amountToSpend)
@@ -190,7 +190,7 @@ public class BattleController : MonoBehaviour
             damageClone.damageText.text = damageAmount.ToString();
             damageClone.gameObject.SetActive(true);
 
-            AudioManager.instance.PlaySFX(6);
+            //AudioManager.instance.PlaySFX(6);
 
         }
     }
@@ -214,7 +214,7 @@ public class BattleController : MonoBehaviour
             damageClone.damageText.text = damageAmount.ToString();
             damageClone.gameObject.SetActive(true);
 
-            AudioManager.instance.PlaySFX(5);
+            //AudioManager.instance.PlaySFX(5);
 
         }
     }

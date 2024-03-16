@@ -22,6 +22,7 @@ public class CardPointController : MonoBehaviour
     public CardPlacePoint[] playerCardPoints, enemyCardPoints;
 
     public float timeBetweenAttacks = .25f;
+
     void Start()
     {
         
@@ -62,8 +63,8 @@ public class CardPointController : MonoBehaviour
 
                 playerCardPoints[i].activeCard.anim.SetTrigger("Attack");
 
-                AudioManager.instance.PlaySFX(1);
-
+                //AudioManager.instance.PlaySFX(1);
+                FMODAudioManager.instance.PlayOneShot(FMODEvents.instance.cardAttack, transform.position);
                 yield return new WaitForSeconds(timeBetweenAttacks);
             }
 
@@ -106,8 +107,8 @@ public class CardPointController : MonoBehaviour
 
                 enemyCardPoints[i].activeCard.anim.SetTrigger("Attack");
 
-                AudioManager.instance.PlaySFX(1);
-
+                //AudioManager.instance.PlaySFX(1);
+                FMODAudioManager.instance.PlayOneShot(FMODEvents.instance.cardAttack, transform.position);
                 yield return new WaitForSeconds(timeBetweenAttacks);
             }
 

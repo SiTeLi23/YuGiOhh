@@ -287,7 +287,7 @@ public class EnemyController : MonoBehaviour
 
         BattleController.instance.SpendEnemyMana(cardSO.manaCost);
 
-        AudioManager.instance.PlaySFX(4);
+        //AudioManager.instance.PlaySFX(4);
     }
 
     /// <summary>

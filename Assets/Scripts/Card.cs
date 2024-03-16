@@ -115,7 +115,7 @@ public class Card : MonoBehaviour
 
                             BattleController.instance.SpendPlayerMana(manaCost);
 
-                            AudioManager.instance.PlaySFX(4);
+                            //AudioManager.instance.PlaySFX(4);
                         }
                         else 
                         {
@@ -199,11 +199,11 @@ public class Card : MonoBehaviour
 
             Destroy(gameObject, 5f);
 
-            AudioManager.instance.PlaySFX(2);
+            //AudioManager.instance.PlaySFX(2);
         }
         else 
         {
-            AudioManager.instance.PlaySFX(1);
+            //AudioManager.instance.PlaySFX(1);
         }
 
         UpdateCardDisplay();

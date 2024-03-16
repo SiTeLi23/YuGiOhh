@@ -8,7 +8,7 @@ public class BattleSelectButton : MonoBehaviour
     public string levelToLoad;
     void Start()
     {
-        AudioManager.instance.PlayBattleSelectMusic();
+        //AudioManager.instance.PlayBattleSelectMusic();
     }
 
     // Update is called once per frame

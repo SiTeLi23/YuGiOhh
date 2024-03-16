@@ -1043,6 +1043,13 @@ MonoBehaviour:
   - {fileID: 5811005281634834779}
   - {fileID: 5811005280875555150}
   timeBetweenAttacks: 0.5
+  cardAttackSfx:
+    Guid:
+      Data1: -829034789
+      Data2: 1193946255
+      Data3: 169037737
+      Data4: -2122454780
+    Path: event:/CardAttack
 --- !u!1 &5811005281140558589
 GameObject:
   m_ObjectHideFlags: 0

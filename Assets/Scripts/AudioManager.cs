@@ -32,20 +32,7 @@ public class AudioManager : MonoBehaviour
 
     void Update()
     {
-     /*   if (playingBGM)
-        {
-            if (bgms[currentBGM].isPlaying == false)
-            {
-                currentBGM++;
-                if (currentBGM >= bgms.Length)
-                {
-                    currentBGM = 0;
-                }
 
-                bgms[currentBGM].Play();
-            }
-        }
-     */
     }
 
     public void StopMusic() 

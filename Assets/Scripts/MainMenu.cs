@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     public string battleSelectScene;
     void Start()
     {
-        AudioManager.instance.PlayMenuMusic();
+        //AudioManager.instance.PlayMenuMusic();
     }
 
     // Update is called once per frame
@@ -21,13 +21,13 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene(battleSelectScene);
 
-        AudioManager.instance.PlaySFX(0);
+        //AudioManager.instance.PlaySFX(0);
     }
 
     public void QuitGame() 
     {
         Application.Quit();
 
-        AudioManager.instance.PlaySFX(0);
+        //AudioManager.instance.PlaySFX(0);
     }
 }
