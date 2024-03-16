@@ -53,10 +53,13 @@ MonoBehaviour:
   cardsToDrawPerTurn: 2
   currentPhase: 0
   discardPoint: {fileID: 5720216298625629447}
-  playerHealth: 50
-  enemyHealth: 50
+  playerMaxHealth: 30
+  enemyMaxHealth: 30
+  playerHealth: 30
+  enemyHealth: 30
   battleEnded: 0
   resultScreenDelayTime: 1
+  playerFirstChance: 0.5
 --- !u!1 &5720216298625629446
 GameObject:
   m_ObjectHideFlags: 0

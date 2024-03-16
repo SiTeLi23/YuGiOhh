@@ -7,6 +7,11 @@ public class FMODEvents : MonoBehaviour
 {
     public static FMODEvents instance;
 
+    [field: Header("Music")]
+    [field: SerializeField] public EventReference music { get; private set; }
+    [field: SerializeField] public EventReference MainMenumusic { get; private set; }
+    [field: SerializeField] public EventReference BattleSelectmusic { get; private set; }
+
     [field: Header("Card SFX")]
     [field: SerializeField] public EventReference cardAttack { get; private set; }
 

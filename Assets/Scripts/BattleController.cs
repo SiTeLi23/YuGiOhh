@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum MusicState 
+{
+   Normal_Music_State = 0,
+   Danger_Music_State = 1,
+}
+
 public class BattleController : MonoBehaviour
 {
     public static BattleController instance;
@@ -37,6 +43,7 @@ public class BattleController : MonoBehaviour
     //discard point
     public Transform discardPoint;
 
+    public int playerMaxHealth = 50, enemyMaxHealth = 50;
     public int playerHealth;
     public int enemyHealth;
 
@@ -76,6 +83,7 @@ public class BattleController : MonoBehaviour
         }
 
         //AudioManager.instance.PlayBGM();
+        FMODAudioManager.instance.InitializeMusic(FMODEvents.instance.music);
     }
 
     public void SpendPlayerMana(int amountToSpend)
@@ -176,6 +184,10 @@ public class BattleController : MonoBehaviour
         if (playerHealth > 0 || battleEnded == false) 
         {
             playerHealth -= damageAmount;
+            if(playerHealth <= playerMaxHealth * 0.5f)
+            {
+                FMODAudioManager.instance.SetMusicState(MusicState.Danger_Music_State);
+            }
             if(playerHealth <= 0) 
             {
                 playerHealth = 0;
@@ -200,6 +212,10 @@ public class BattleController : MonoBehaviour
         if (enemyHealth > 0 || battleEnded == false)
         {
             enemyHealth -= damageAmount;
+            if (enemyHealth <= enemyMaxHealth * 0.5f)
+            {
+                FMODAudioManager.instance.SetMusicState(MusicState.Danger_Music_State);
+            }
             if (enemyHealth <= 0)
             {
                 enemyHealth = 0;

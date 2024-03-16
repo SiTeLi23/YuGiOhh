@@ -9,6 +9,7 @@ public class BattleSelectButton : MonoBehaviour
     void Start()
     {
         //AudioManager.instance.PlayBattleSelectMusic();
+        FMODAudioManager.instance.InitializeMusic(FMODEvents.instance.BattleSelectmusic);
     }
 
     // Update is called once per frame

@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 999d8a76cd3d5d34392d99cff9e9d462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVoluem: 1
+  musicVoluem: 1
+  sfxVoluem: 1
 --- !u!1 &3800163459906006446
 GameObject:
   m_ObjectHideFlags: 0
@@ -89,10 +92,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec401cafc60de214aa50d369aafe36a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <music>k__BackingField:
+    Guid:
+      Data1: -526517712
+      Data2: 1086649489
+      Data3: -1270400843
+      Data4: 222677845
+    Path: event:/Music/Level1Music
+  <MainMenumusic>k__BackingField:
+    Guid:
+      Data1: -396005742
+      Data2: 1248234602
+      Data3: 1886012846
+      Data4: -2023044635
+    Path: event:/Music/MainMenuMusic
+  <BattleSelectmusic>k__BackingField:
+    Guid:
+      Data1: 1150510353
+      Data2: 1133215156
+      Data3: 1248120978
+      Data4: 1138197544
+    Path: event:/Music/BattleSelectMusic
   <cardAttack>k__BackingField:
     Guid:
       Data1: -829034789
       Data2: 1193946255
       Data3: 169037737
       Data4: -2122454780
-    Path: event:/CardAttack
+    Path: event:/SFX/CardAttack

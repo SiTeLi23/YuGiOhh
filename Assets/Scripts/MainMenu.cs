@@ -9,6 +9,7 @@ public class MainMenu : MonoBehaviour
     void Start()
     {
         //AudioManager.instance.PlayMenuMusic();
+        FMODAudioManager.instance.InitializeMusic(FMODEvents.instance.MainMenumusic);
     }
 
     // Update is called once per frame
