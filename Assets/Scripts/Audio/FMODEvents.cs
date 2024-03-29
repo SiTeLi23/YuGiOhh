@@ -12,8 +12,11 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference MainMenumusic { get; private set; }
     [field: SerializeField] public EventReference BattleSelectmusic { get; private set; }
 
+    [field: Header("SFX")]
+    [field: SerializeField] public EventReference buttonPressed { get; private set; }
     [field: Header("Card SFX")]
     [field: SerializeField] public EventReference cardAttack { get; private set; }
+    
 
 
 
@@ -23,7 +26,7 @@ public class FMODEvents : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else if (instance != this)
         {

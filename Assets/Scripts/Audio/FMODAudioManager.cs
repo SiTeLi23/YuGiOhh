@@ -8,11 +8,11 @@ public class FMODAudioManager : MonoBehaviour
 {
     [Header("Volume")]
     [Range(0, 1)]
-    public float masterVoluem = 1;
+    public float masterVolume = 1;
     [Range(0, 1)]
-    public float musicVoluem = 1;
+    public float musicVolume = 1;
     [Range(0, 1)]
-    public float sfxVoluem = 1;
+    public float sfxVolume = 1;
 
     private Bus masterBus;
     private Bus musicBus;
@@ -44,6 +44,8 @@ public class FMODAudioManager : MonoBehaviour
         masterBus = RuntimeManager.GetBus("bus:/");
         musicBus = RuntimeManager.GetBus("bus:/Music");
         sfxBus = RuntimeManager.GetBus("bus:/SFX");
+
+
     }
 
     private void Start()
@@ -53,9 +55,9 @@ public class FMODAudioManager : MonoBehaviour
 
     private void Update()
     {
-        masterBus.setVolume(masterVoluem);
-        musicBus.setVolume(musicVoluem);
-        sfxBus.setVolume(sfxVoluem);
+        masterBus.setVolume(masterVolume);
+        musicBus.setVolume(musicVolume);
+        sfxBus.setVolume(sfxVolume);
     }
 
     public void InitializeMusic(EventReference musicEventReference) 
@@ -70,9 +72,17 @@ public class FMODAudioManager : MonoBehaviour
         RuntimeManager.PlayOneShot(sound, worldPos);
     }
 
+    /// <summary>
+    /// adptive music switch 
+    /// </summary>
     public void SetMusicState(MusicState musicState) 
     {
         musicEventInstance.setParameterByName("State", (float)musicState);
+    }
+
+    public void StopAllMusic() 
+    {
+        CleanUp();
     }
 
     public EventInstance CreateEventInstance(EventReference eventReference) 

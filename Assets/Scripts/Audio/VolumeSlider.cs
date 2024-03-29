@@ -27,13 +27,13 @@ public class VolumeSlider : MonoBehaviour
         switch (volumeType)
         {
             case VolumeType.MASTER:
-                volumeSlider.value = FMODAudioManager.instance.masterVoluem;
+                volumeSlider.value = FMODAudioManager.instance.masterVolume;
                 break;
             case VolumeType.MUSIC:
-                volumeSlider.value = FMODAudioManager.instance.musicVoluem;
+                volumeSlider.value = FMODAudioManager.instance.musicVolume;
                 break;
             case VolumeType.SFX:
-                volumeSlider.value = FMODAudioManager.instance.sfxVoluem;
+                volumeSlider.value = FMODAudioManager.instance.sfxVolume;
                 break;
             default:
                 Debug.LogWarning("Volume Type not supported " + volumeType);
@@ -46,13 +46,13 @@ public class VolumeSlider : MonoBehaviour
         switch (volumeType)
         {
             case VolumeType.MASTER:
-                FMODAudioManager.instance.masterVoluem = volumeSlider.value;
+                FMODAudioManager.instance.masterVolume = volumeSlider.value;
                 break;
             case VolumeType.MUSIC:
-                FMODAudioManager.instance.musicVoluem = volumeSlider.value;
+                FMODAudioManager.instance.musicVolume = volumeSlider.value;
                 break;
             case VolumeType.SFX:
-                FMODAudioManager.instance.sfxVoluem = volumeSlider.value;
+                FMODAudioManager.instance.sfxVolume = volumeSlider.value;
                 break;
             default:
                 Debug.LogWarning("Volume Type not supported " + volumeType);
